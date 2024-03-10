@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-FileStorage that serializes instances to a 
+FileStorage that serializes instances to a
 JSON file and deserializes JSON file to instance
 """
 import json
@@ -19,14 +19,14 @@ class FileStorage():
         returns the dictionary __objects
         """
         return FileStorage.__objects
-    
+
     def new(self, obj):
         """
         sets in __objects the obj with key <obj class name>.id
         """
         key = f"{obj.__class__.__name__}.{obj.id}"
         FileStorage.__objects[key] = obj
-    
+
     def add_class(self):
          """store classes  in a dictionary to avoid import"""
          from models.base_model import BaseModel
@@ -45,7 +45,7 @@ class FileStorage():
              'City' : City,
              'Amenity' : Amenity
              }
-        
+
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
         # comes out the issue to create a whole dictionary
@@ -62,13 +62,13 @@ class FileStorage():
             for key, value in FileStorage.__objects.items():
                  storage_dic[key] = value.to_dict()
             json.dump(storage_dic, file)
-        
+
     def reload(self):
         """
         deserializes the JSON file to __objects (only if the JSON file (__file_path) exists;
         otherwise, do nothing. If the file doesn’t exist, no exception should be raised)
         """
-        # AttributeError: 'str' object has no attribute 'read' 
+        # AttributeError: 'str' object has no attribute 'read'
         # was giving a file_path instead of file
         # problem not loading anything hence rewriting file and removing past data
         # for key, value in FileStorage.__objects.items(): removed to see interaction
@@ -79,7 +79,7 @@ class FileStorage():
         # i think i should convert the objects i load according to their dictionary
         # created reload_dic for that
         # i presume reload_dic is a double dictionary with classname id as key and dictionary \
-        # of attributes 
+        # of attributes
         # circular import problem BaseModel(value) from models.base_model import BaseModel
         # thought about adding a method to my class to store appropriate classes
         # using a metaclass might open a can of worms
@@ -106,6 +106,6 @@ class FileStorage():
                 # print("value", value) valid dictionary
                 # print("value['email']", value['email']) key can be accessed here
                 self.__objects[key] = the_class(**value)
-                
+
         else:
             return
