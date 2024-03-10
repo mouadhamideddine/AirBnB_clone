@@ -1,0 +1,13 @@
+#!/bin/bash
+
+git add .
+
+if [ -z "$1" ]; then
+    read -p "Enter commit message: " message
+else
+    message="$*"
+fi
+
+git commit -m "$message"
+
+git push
