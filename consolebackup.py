@@ -128,16 +128,10 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
             return
         the_instance = storage.all()[key]
-        #this line added later to be able to add attribute not in class orignally
-        try:
-            type_cast = type(the_instance.to_dict()[args[2]])
-            args_3 = type_cast(args[3])
-            setattr(the_instance, args[2], args_3)
-            storage.save()
-        except:
-            pass
-        setattr(the_instance, args[2], args[3])
-        
+        type_cast = type(the_instance.to_dict()[args[2]])
+        args_3 = type_cast(args[3])
+        setattr(the_instance, args[2], args_3)
+        storage.save()
 
 
 if __name__ == '__main__':
